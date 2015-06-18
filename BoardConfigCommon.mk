@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+LOCAL_PATH := device/samsung/exynos5420-common
+
 TARGET_SPECIFIC_HEADER_PATH += device/samsung/exynos5420-common/include
 
 # Platform
