@@ -3,6 +3,7 @@ BOARD_SEPOLICY_DIRS += device/samsung/exynos5420-common/sepolicy
 
 BOARD_SEPOLICY_UNION += \
 	file_contexts \
+	debuggerd.te \
 	device.te \
 	domain.te \
 	drmserver.te \
