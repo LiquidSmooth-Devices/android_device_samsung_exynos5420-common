@@ -12,7 +12,7 @@ BOARD_SEPOLICY_UNION += \
 	init.te \
 	kernel.te \
 	mediaserver.te \
-    service_contexts \
+	service_contexts \
 	servicemanager.te \
 	system_app.te \
 	system_server.te \
