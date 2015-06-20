@@ -99,7 +99,6 @@ PRODUCT_COPY_FILES += \
 
 # Rootdir stuff
 PRODUCT_PACKAGES += \
-    init.recovery.universal5420.rc \
     fstab.universal5420 \
     init.samsung.rc \
     init.universal5420.usb.rc \
