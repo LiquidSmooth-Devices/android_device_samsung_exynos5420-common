@@ -133,6 +133,10 @@ $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalv
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
+# Display Density
+PRODUCT_PROPERTY_OVERRIDES += \
+    qemu.sf.lcd_density=320
+
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sapa.jack.master=alsa \
