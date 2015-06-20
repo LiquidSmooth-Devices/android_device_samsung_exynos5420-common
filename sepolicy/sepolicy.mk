@@ -14,6 +14,8 @@ BOARD_SEPOLICY_UNION += \
 	mediaserver.te \
 	service_contexts \
 	servicemanager.te \
+	shell.te \
+	sysinit.te \
 	system_app.te \
 	system_server.te \
 	vold.te \
