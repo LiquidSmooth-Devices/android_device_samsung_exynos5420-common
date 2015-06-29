@@ -60,6 +60,9 @@ BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_SOURCE := kernel/samsung/klimtwifi
 
+# CM Hardware
+BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
+
 # Battery
 BOARD_BATTERY_DEVICE_NAME := battery
 
