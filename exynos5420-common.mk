@@ -40,6 +40,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     gps.universal5420
 
+# Fingerprint sensor
+PRODUCT_PACKAGES += \
+    fingerprint.5420
+	
+PRODUCT_PROPERTY_OVERRIDES += \
+    fingerprint_enabled=1
+
 # HW composer
 PRODUCT_PACKAGES += \
     libion \

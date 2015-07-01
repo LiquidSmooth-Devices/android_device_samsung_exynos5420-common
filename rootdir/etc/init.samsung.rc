@@ -49,6 +49,10 @@ on post-fs-data
     mkdir /mnt/shell 0750 shell shell
     mkdir /mnt/media_rw 0750 media_rw media_rw
 
+on boot
+    # Fingerprint
+    mkdir /dev/validity 0775 system system
+
 service_redefine drm /system/bin/drmserver.samsung
     class main
     user drm
