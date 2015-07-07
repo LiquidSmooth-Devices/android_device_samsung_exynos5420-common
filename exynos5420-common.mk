@@ -134,7 +134,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Display Density
 PRODUCT_PROPERTY_OVERRIDES += \
-    qemu.sf.lcd_density=320
+    qemu.sf.lcd_density=320 \
+    ro.sf.lcd_density=320
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
