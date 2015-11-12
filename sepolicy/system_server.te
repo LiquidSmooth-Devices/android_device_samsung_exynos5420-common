@@ -7,3 +7,7 @@ allow system_server efs_file:dir search;
 type_transition system_server system_data_file:fifo_file gps_data_file ".gps.interface.pipe.to_jni";
 allow system_server gps_data_file:fifo_file create_file_perms;
 allow system_server gps_data_file:dir rw_dir_perms;
+
+#avc: denied { read } for name=".mac.info" dev="mmcblk0p3" ino=30 scontext=u:r:system_server:s0 tcontext=u:object_r:wifi_efs_file:s0 tclass=file permissive=1
+# avc: denied { open } for name=".mac.info" dev="mmcblk0p3" ino=30 scontext=u:r:system_server:s0 tcontext=u:object_r:wifi_efs_file:s0 tclass=file permissive=1
+allow system_server wifi_efs_file:file { read open };

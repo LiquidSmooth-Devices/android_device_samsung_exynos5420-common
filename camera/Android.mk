@@ -5,7 +5,7 @@ LOCAL_SRC_FILES := \
     CameraWrapper.cpp
 
 LOCAL_SHARED_LIBRARIES := \
-    libhardware liblog libcamera_client libutils
+    libhardware liblog libcamera_client libutils libion_exynos
 
 LOCAL_C_INCLUDES += \
 	system/media/camera/include \
@@ -15,3 +15,4 @@ LOCAL_MODULE := camera.universal5420
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
+#include $(BUILD_HEAPTRACKED_SHARED_LIBRARY)

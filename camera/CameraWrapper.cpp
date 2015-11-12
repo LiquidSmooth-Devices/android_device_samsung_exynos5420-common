@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014, The CyanogenMod Project
+ * Copyright (C) 2012-2015, The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 */
 
-//#define LOG_NDEBUG 0
+#define LOG_NDEBUG 0
 
 #define LOG_TAG "CameraWrapper"
 #include <cutils/log.h>
@@ -44,24 +44,29 @@ static int camera_get_number_of_cameras(void);
 static int camera_get_camera_info(int camera_id, struct camera_info *info);
 
 static struct hw_module_methods_t camera_module_methods = {
-    open: camera_device_open
+    .open = camera_device_open
 };
 
 camera_module_t HAL_MODULE_INFO_SYM = {
-    common: {
-         tag: HARDWARE_MODULE_TAG,
-         version_major: 1,
-         version_minor: 0,
-         id: CAMERA_HARDWARE_MODULE_ID,
-         name: "Exynos5420 Camera Wrapper",
-         author: "BLCK",
-         methods: &camera_module_methods,
-         dso: NULL, /* remove compilation warnings */
-         reserved: {0}, /* remove compilation warnings */
+    .common = {
+         .tag = HARDWARE_MODULE_TAG,
+         .module_api_version = CAMERA_MODULE_API_VERSION_1_0,
+         .hal_api_version = HARDWARE_HAL_API_VERSION,
+         .id = CAMERA_HARDWARE_MODULE_ID,
+         .name = "Exynos5420 Camera Wrapper",
+         .author = "The CyanogenMod Project",
+         .methods = &camera_module_methods,
+         .dso = NULL, /* remove compilation warnings */
+         .reserved = {0}, /* remove compilation warnings */
     },
-    get_number_of_cameras: camera_get_number_of_cameras,
-    get_camera_info: camera_get_camera_info,
-    set_callbacks: NULL,
+    .get_number_of_cameras = camera_get_number_of_cameras,
+    .get_camera_info = camera_get_camera_info,
+    .set_callbacks = NULL, /* remove compilation warnings */
+    .get_vendor_tag_ops = NULL, /* remove compilation warnings */
+    .open_legacy = NULL, /* remove compilation warnings */
+    .set_torch_mode = NULL, /* remove compilation warnings */
+    .init = NULL, /* remove compilation warnings */
+    .reserved = {0}, /* remove compilation warnings */
 };
 
 typedef struct wrapper_camera_device {
@@ -97,7 +102,7 @@ static char *camera_fixup_getparams(int id, const char *settings)
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
 
-#if !LOG_NDEBUG
+#ifdef LOG_NDEBUG
     ALOGV("%s: original parameters:", __FUNCTION__);
     params.dump();
 #endif
@@ -113,7 +118,7 @@ static char *camera_fixup_getparams(int id, const char *settings)
         params.set("max-sharpness", params.get("sharpness-max"));
     }
 
-#if !LOG_NDEBUG
+#ifdef LOG_NDEBUG
     ALOGV("%s: fixed parameters:", __FUNCTION__);
     params.dump();
 #endif
@@ -129,7 +134,7 @@ static char *camera_fixup_setparams(int id, const char *settings)
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
 
-#if !LOG_NDEBUG
+#ifdef LOG_NDEBUG
     ALOGV("%s: original parameters:", __FUNCTION__);
     params.dump();
 #endif
@@ -170,11 +175,11 @@ static int camera_set_preview_window(struct camera_device *device,
             (uintptr_t)(((wrapper_camera_device_t*)device)->vendor));
 
     if (!device) {
-	ALOGE("Camera device null");
+         ALOGE("Camera device null");
         return -EINVAL;
     }
     if (!window) {
-	ALOGE("Camera window is null");
+         ALOGE("Camera window is null");
         return -EINVAL;
     }
 
@@ -264,7 +269,7 @@ static int camera_preview_enabled(struct camera_device *device)
             (uintptr_t)(((wrapper_camera_device_t*)device)->vendor));
 
     if (!device) {
-	ALOGE("Camera device null");
+        ALOGE("Camera device null");
         return -EINVAL;
     }
 
@@ -385,6 +390,10 @@ static int camera_set_parameters(struct camera_device *device,
     char *tmp = NULL;
     tmp = camera_fixup_setparams(CAMERA_ID(device), params);
 
+#ifdef LOG_NDEBUG
+    __android_log_write(ANDROID_LOG_VERBOSE, LOG_TAG, tmp);
+#endif
+
     int ret = VENDOR_CALL(device, set_parameters, tmp);
     return ret;
 }
@@ -399,9 +408,17 @@ static char *camera_get_parameters(struct camera_device *device)
 
     char *params = VENDOR_CALL(device, get_parameters);
 
+#ifdef LOG_NDEBUG
+    __android_log_write(ANDROID_LOG_VERBOSE, LOG_TAG, params);
+#endif
+
     char *tmp = camera_fixup_getparams(CAMERA_ID(device), params);
     VENDOR_CALL(device, put_parameters, params);
     params = tmp;
+
+#ifdef LOG_NDEBUG
+    __android_log_write(ANDROID_LOG_VERBOSE, LOG_TAG, params);
+#endif
 
     return params;
 }
@@ -558,7 +575,7 @@ static int camera_device_open(const hw_module_t *module, const char *name,
         memset(camera_ops, 0, sizeof(*camera_ops));
 
         camera_device->base.common.tag = HARDWARE_DEVICE_TAG;
-        camera_device->base.common.version = 0;
+        camera_device->base.common.version = CAMERA_DEVICE_API_VERSION_1_0;
         camera_device->base.common.module = (hw_module_t *)(module);
         camera_device->base.common.close = camera_device_close;
         camera_device->base.ops = camera_ops;

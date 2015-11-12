@@ -2,16 +2,21 @@
 BOARD_SEPOLICY_DIRS += device/samsung/exynos5420-common/sepolicy
 
 BOARD_SEPOLICY_UNION += \
-	file_contexts \
+    adbd.te \
 	debuggerd.te \
 	device.te \
 	domain.te \
 	drmserver.te \
 	file.te \
+	file_contexts \
+    fsck.te \
 	gpsd.te \
 	init.te \
 	kernel.te \
+    macloader.te \
 	mediaserver.te \
+    rild.te \
+    sdcard.te \
 	service_contexts \
 	servicemanager.te \
 	shell.te \
