@@ -177,3 +177,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.sec.fle.encryption=true \
     ro.secwvk=220 \
     ro.securestorage.support=true 
+
+$(call inherit-product-if-exists, vendor/samsung/exynos5420-common/exynos5420-common-vendor.mk)
