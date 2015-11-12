@@ -55,6 +55,9 @@ USE_MINIKIN := true
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
 
+# Audio stuff WIP
+BOARD_USE_S3D_SUPPORT := true
+
 # Force the screenshot path to CPU consumer
 COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
 
